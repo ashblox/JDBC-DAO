@@ -18,10 +18,9 @@ public class CourseDAO extends DAO<Course>{
     private static final String DELETE = "delete from courses where id = ?";
 
     @Override
-    public Course findById(int id) throws SQLException {
+    public Course findById(int id) {
         Course course = null;
-        Connection connection = SqlUtil.getConnection();
-        try {
+        try (Connection connection = SqlUtil.getConnection()){
             PreparedStatement pstmt = connection.prepareStatement(GET_ONE);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
@@ -41,7 +40,6 @@ public class CourseDAO extends DAO<Course>{
         } catch (SQLException e) {
             SqlUtil.printError(e);
         }
-        connection.close();
         return course;
     }
 
@@ -64,9 +62,8 @@ public class CourseDAO extends DAO<Course>{
 
     @Override
     public List<Course> findAll() {
-        List<Course> courses = new ArrayList<Course>();
-        Connection connection = SqlUtil.getConnection();
-        try {
+        List<Course> courses = new ArrayList<>();
+        try (Connection connection = SqlUtil.getConnection()){
             PreparedStatement pstmt = connection.prepareStatement("Select * from courses");
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) { // shifts the resultset cursor down to next record
