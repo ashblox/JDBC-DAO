@@ -18,7 +18,6 @@ public class SqlUtil {
         Connection connection = null;
         try {
             DriverManager.registerDriver(new Driver());
-            System.out.println("Established Connection to MySQL");
             connection = DriverManager.getConnection(dbUrl, username, password);
         } catch (SQLException e) {
             printError(e);

@@ -103,17 +103,7 @@ public class Course implements DTO {
 
     @Override
     public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", yearEstablished=" + yearEstablished +
-                ", length=" + length +
-                ", elevation='" + elevation + '\'' +
-                ", foliage='" + foliage + '\'' +
-                ", teeType='" + teeType + '\'' +
-                '}';
+        return "Course name: " + name + "; Location: " + city + ", " + state;
     }
 
     @Override
