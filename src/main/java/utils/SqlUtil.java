@@ -5,8 +5,6 @@ import com.mysql.cj.jdbc.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import static sun.plugin.javascript.navig.JSType.URL;
-
 public class SqlUtil {
 
     private static final String username = "root";

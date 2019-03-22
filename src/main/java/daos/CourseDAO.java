@@ -66,7 +66,7 @@ public class CourseDAO extends DAO<Course> {
                         .setLength(rs.getInt("length_ft"))
                         .setElevation(rs.getString("elevation"))
                         .setFoliage(rs.getString("foliage"))
-                        .setTeeType("tee_type")
+                        .setTeeType(rs.getString("tee_type"))
                         .createCourse();
 
                 // adds current record
