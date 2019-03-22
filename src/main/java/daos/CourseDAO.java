@@ -1,6 +1,7 @@
 package daos;
 
 import models.Course;
+import models.CourseBuilder;
 import utils.SqlUtil;
 
 import java.util.ArrayList;
@@ -25,16 +26,17 @@ public class CourseDAO extends DAO<Course>{
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                course = new Course();
-                course.setId(rs.getInt("id"));
-                course.setName(rs.getString("name"));
-                course.setCity(rs.getString("city"));
-                course.setState(rs.getString("state"));
-                course.setYearEstablished(rs.getInt("year_established"));
-                course.setLength(rs.getInt("length_ft"));
-                course.setElevation(rs.getString("elevation"));
-                course.setFoliage(rs.getString("foliage"));
-                course.setTeeType("tee_type");
+                course = new CourseBuilder()
+                .setId(rs.getInt("id"))
+                .setName(rs.getString("name"))
+                .setCity(rs.getString("city"))
+                .setState(rs.getString("state"))
+                .setYearEstablished(rs.getInt("year_established"))
+                .setLength(rs.getInt("length_ft"))
+                .setElevation(rs.getString("elevation"))
+                .setFoliage(rs.getString("foliage"))
+                .setTeeType(rs.getString("tee_type"))
+                .createCourse();
             }
         } catch (SQLException e) {
             SqlUtil.printError(e);
@@ -43,6 +45,23 @@ public class CourseDAO extends DAO<Course>{
         return course;
     }
 
+//    public Course createCourseFromResultSet(ResultSet rs) throws SQLException {
+//        Course course = new Course();
+//        while (rs.next()) {
+//            course = new Course();
+//            course.setId(rs.getInt("id"));
+//            course.setName(rs.getString("name"));
+//            course.setCity(rs.getString("city"));
+//            course.setState(rs.getString("state"));
+//            course.setYearEstablished(rs.getInt("year_established"));
+//            course.setLength(rs.getInt("length_ft"));
+//            course.setElevation(rs.getString("elevation"));
+//            course.setFoliage(rs.getString("foliage"));
+//            course.setTeeType("tee_type");
+//        }
+//        return course;
+//    }
+
     @Override
     public List<Course> findAll() {
         List<Course> courses = new ArrayList<Course>();
@@ -50,7 +69,23 @@ public class CourseDAO extends DAO<Course>{
         try {
             PreparedStatement pstmt = connection.prepareStatement("Select * from courses");
             ResultSet rs = pstmt.executeQuery();
-            
+            while (rs.next()) { // shifts the resultset cursor down to next record
+                // fetches current record
+                Course currentCourse = new CourseBuilder()
+                .setId(rs.getInt("id"))
+                .setName(rs.getString("name"))
+                .setCity(rs.getString("city"))
+                .setState(rs.getString("state"))
+                .setYearEstablished(rs.getInt("year_established"))
+                .setLength(rs.getInt("length_ft"))
+                .setElevation(rs.getString("elevation"))
+                .setFoliage(rs.getString("foliage"))
+                .setTeeType("tee_type")
+                .createCourse();
+
+                // adds current record
+                courses.add(currentCourse);
+            }
         } catch (SQLException e) {
             SqlUtil.printError(e);
         }

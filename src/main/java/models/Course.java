@@ -2,7 +2,6 @@ package models;
 
 import daos.DTO;
 
-import java.util.Objects;
 
 public class Course implements DTO {
 
@@ -15,6 +14,18 @@ public class Course implements DTO {
     private String elevation;
     private String foliage;
     private String teeType;
+
+    public Course(int id, String name, String city, String state, int yearEstablished, int length, String elevation, String foliage, String teeType) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+        this.state = state;
+        this.yearEstablished = yearEstablished;
+        this.length = length;
+        this.elevation = elevation;
+        this.foliage = foliage;
+        this.teeType = teeType;
+    }
 
     public int getId() {
         return id;
