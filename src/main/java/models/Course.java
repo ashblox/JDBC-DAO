@@ -2,6 +2,8 @@ package models;
 
 import daos.DTO;
 
+import java.util.Objects;
+
 
 public class Course implements DTO {
 
@@ -101,7 +103,17 @@ public class Course implements DTO {
 
     @Override
     public String toString() {
-        return this.name + " " + this.city + " " + this.state;
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", yearEstablished=" + yearEstablished +
+                ", length=" + length +
+                ", elevation='" + elevation + '\'' +
+                ", foliage='" + foliage + '\'' +
+                ", teeType='" + teeType + '\'' +
+                '}';
     }
 
     @Override
@@ -109,10 +121,9 @@ public class Course implements DTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Course course = (Course) o;
-        return id == course.id &&
-                name.equals(course.name) &&
-                city.equals(course.city) &&
-                state.equals(course.state);
+        return Objects.equals(name, course.name) &&
+                Objects.equals(city, course.city) &&
+                Objects.equals(state, course.state);
     }
 
 }
